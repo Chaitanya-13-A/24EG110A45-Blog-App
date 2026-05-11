@@ -42,3 +42,15 @@ adminApp.get("/articles", verifyToken("ADMIN"), async (req, res) => {
   //send res
   res.status(200).json({ message: "Article List:", payload: articlesList });
 });
+
+//Read all users
+adminApp.get("/users", verifyToken("ADMIN"), async (req, res) => {
+  const users = await userModel.find({ role: "USER" }).select("-password");
+  res.status(200).json({ message: "Users list", payload: users });
+});
+
+//Read all authors
+adminApp.get("/authors", verifyToken("ADMIN"), async (req, res) => {
+  const authors = await userModel.find({ role: "AUTHOR" }).select("-password");
+  res.status(200).json({ message: "Authors list", payload: authors });
+});
