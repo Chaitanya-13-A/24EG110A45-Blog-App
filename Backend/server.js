@@ -10,7 +10,11 @@ import cors from "cors";
 const app = exp();
 app.use(
   cors({
-    origin: process.env.FRONTEND_URL || "https://blog-app-frontend-azure.vercel.app",
+    origin: [
+      "https://blog-app-frontend-azure.vercel.app",
+      "https://blog-app-frontend-new-6uij.vercel.app",
+      "http://localhost:5173"
+    ],
     credentials: true,
   }),
 );
