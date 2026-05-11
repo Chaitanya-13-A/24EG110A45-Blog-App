@@ -4,7 +4,7 @@ import { articleModel } from "../models/article-model.js";
 export const userApp = exp.Router();
 
 //Read articles of all authors
-userApp.get("/articles", verifyToken("USER"), async (req, res) => {
+userApp.get("/articles", verifyToken("USER", "AUTHOR", "ADMIN"), async (req, res) => {
   //read articles
   const articlesList = await articleModel.find({ isActive: true });
   //send res
@@ -22,7 +22,7 @@ userApp.get("/article/:id", verifyToken("USER", "AUTHOR", "ADMIN"), async (req, 
 });
 
 //Add comment to an article
-userApp.put("/articles", verifyToken("USER"), async (req, res) => {
+userApp.put("/articles", verifyToken("USER", "AUTHOR"), async (req, res) => {
   //get body from req
   const { articleId, comment } = req.body;
   //check article
