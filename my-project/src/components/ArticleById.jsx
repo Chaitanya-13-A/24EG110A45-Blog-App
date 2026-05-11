@@ -4,7 +4,7 @@ import axios from "axios";
 import BASE_URL from "../config";
 
 import { useAuth } from "../store/authStore";
-import { toast } from "react-toastify";
+import { toast } from "react-hot-toast";
 import {
   articlePageWrapper,
   articleHeader,
