@@ -14,6 +14,8 @@ import { useForm } from "react-hook-form";
 import { NavLink, useNavigate } from "react-router";
 import { useState } from "react";
 import axios from "axios";
+import BASE_URL from "../config";
+
 
 function Register() {
   const navigate = useNavigate();
@@ -45,7 +47,7 @@ function Register() {
     try {
       setLoading(true);
       const res = await axios.post(
-        "http://localhost:4000/auth/users",
+        `${BASE_URL}/auth/users`,
         formData,
         { withCredentials: true },
       );

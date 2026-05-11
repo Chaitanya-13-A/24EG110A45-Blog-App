@@ -1,6 +1,8 @@
 import { useParams, useLocation, useNavigate } from "react-router";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import BASE_URL from "../config";
+
 import { useAuth } from "../store/authStore";
 import { toast } from "react-toastify";
 import {
@@ -49,7 +51,7 @@ function ArticleById() {
 
       try {
         const res = await axios.get(
-          `http://localhost:4000/user-api/article/${id}`,
+          `${BASE_URL}/user-api/article/${id}`,
           { withCredentials: true },
         );
 
@@ -84,7 +86,7 @@ function ArticleById() {
 
     try {
       const res = await axios.patch(
-        `http://localhost:4000/author-api/articles`,
+        `${BASE_URL}/author-api/articles`,
         { articleId: article._id, isArticleActive: newStatus },
         { withCredentials: true },
       );
@@ -122,7 +124,7 @@ function ArticleById() {
     commentObj.articleId = article._id;
     console.log(commentObj);
     let res = await axios.put(
-      "http://localhost:4000/user-api/articles",
+      `${BASE_URL}/user-api/articles`,
       commentObj,
       { withCredentials: true },
     );

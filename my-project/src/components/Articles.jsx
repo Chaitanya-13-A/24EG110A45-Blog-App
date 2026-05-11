@@ -1,5 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import axios from "axios";
+import BASE_URL from "../config";
+
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../store/authStore";
 import {
@@ -44,7 +46,7 @@ function Articles() {
       setLoading(true);
 
       try {
-        const res = await axios.get("http://localhost:4000/user-api/articles", {
+        const res = await axios.get(`${BASE_URL}/user-api/articles`, {
           withCredentials: true,
         });
 

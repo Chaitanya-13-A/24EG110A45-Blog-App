@@ -1,12 +1,12 @@
 import exp from "express";
-import { userModel } from "../models/UserModel.js";
+import { userModel } from "../models/user-model.js";
 import { compare, hash } from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { verifyToken } from "../middlewares/verifyToken.js";
 const { sign } = jwt;
 export const commonApp = exp.Router();
 import { upload } from "../config/multer.js";
-import { uploadToCloudinary } from "../config/cloudinaryUpload.js";
+import { uploadToCloudinary } from "../config/cloudinary-upload.js";
 import cloudinary from "../config/cloudinary.js";
 
 //Router for registration
