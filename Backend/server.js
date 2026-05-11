@@ -10,23 +10,24 @@ import cors from "cors";
 const app = exp();
 config();
 
-app.use(
-  cors({
-    origin: (origin, callback) => {
-      if (!origin || origin.includes("vercel.app") || origin.includes("localhost")) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
-    credentials: true,
-  }),
-);
+app.get("/health", (req, res) => res.send("OK"));
 
-//add cookie parser middleware
+app.use((req, res, next) => {
+  const origin = req.headers.origin;
+  if (origin && (origin.includes("vercel.app") || origin.includes("localhost"))) {
+    res.header("Access-Control-Allow-Origin", origin);
+  }
+  res.header("Access-Control-Allow-Credentials", "true");
+  res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,PATCH,OPTIONS");
+  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization, Content-Length, X-Requested-With");
+  
+  if (req.method === 'OPTIONS') {
+    return res.sendStatus(200);
+  }
+  next();
+});
+
 app.use(cookieParser());
-
-//body parser middleware
 app.use(exp.json());
 
 //path level middleware
