@@ -8,9 +8,17 @@ import { commonApp } from "./apis/common-api.js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 const app = exp();
+config();
+
 app.use(
   cors({
-    origin: true,
+    origin: (origin, callback) => {
+      if (!origin || origin.includes("vercel.app") || origin.includes("localhost")) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
     credentials: true,
   }),
 );
@@ -32,13 +40,14 @@ const connectDB = async () => {
   try {
     await connect(process.env.DB_URL);
     console.log("DB Connected");
-    const port = process.env.PORT;
-    app.listen(port, () => console.log(`server listening on ${port}`));
   } catch (err) {
     console.log("Error in DB Connect", err);
   }
 };
 connectDB();
+
+const port = process.env.PORT || 4000;
+app.listen(port, () => console.log(`server listening on ${port}`));
 
 //to handle invalid path
 app.use((req, res, next) => {
